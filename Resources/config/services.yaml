@@ -1,0 +1,14 @@
+services:
+  chain_command.service:
+    class: DevTym\ChainCommandBundle\Service\ChainCommandService
+    arguments:
+      $chains: '%chain_command.chains%'
+      $logging: '%chain_command.logging%'
+      $logger: '@logger'
+
+  chain_command.event_subscriber:
+    class: DevTym\ChainCommandBundle\EventListener\ChainCommandEventSubscriber
+    arguments:
+      $service: '@chain_command.service'
+    tags:
+      - { name: 'kernel.event_subscriber' }
